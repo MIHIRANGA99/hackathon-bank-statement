@@ -13,7 +13,7 @@ export function AnalyserPage() {
   const [sourceFileName, setSourceFileName] = useState(null)
 
   const { categorizedTransactions, isLoading, updateCategory, bulkUpdateCategory, summary } =
-    useCategorization(transactions)
+    useCategorization(transactions, sourceFileName)
   const repo = useTransactionRepository(categorizedTransactions)
 
   const handleParsed = (parsedTransactions, fileName) => {
