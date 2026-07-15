@@ -1,7 +1,7 @@
 # Account Statement Analyser — Project Rules
 
-- Stack is fixed: React + Vite + Tailwind + shadcn/ui on frontend, Node + Express on backend, DeepSeek API (via the `openai` SDK pointed at DeepSeek's OpenAI-compatible `baseURL`) for all AI features. Do not suggest or switch to a different stack or AI provider.
-- No database, no ORM. All statement/transaction data lives in memory per session only — never write uploaded files or parsed data to disk.
+- Stack is fixed: React + Vite + Tailwind + shadcn/ui on frontend, Node + Express + MongoDB (via Mongoose) on backend, DeepSeek API (via the `openai` SDK pointed at DeepSeek's OpenAI-compatible `baseURL`) for all AI features. Do not suggest or switch to a different stack or AI provider.
+- Categorized transactions are persisted to MongoDB (accumulating across every statement uploaded, not just the latest) so the dashboard can compute real analytics and history survives a reload. Still never write the raw uploaded PDF/CSV file itself to disk or DB — only parsed, categorized transaction data.
 - Categorisation must be hybrid: a deterministic rule engine first, DeepSeek only for unmatched/ambiguous transactions, batched in one request per statement. Never make categorisation pure-LLM.
 - All numeric insights (totals, savings rate, cash flow, aggregates) are computed in code, never by an LLM.
 - Account numbers are masked to last 4 digits everywhere — in the UI and before sending anything to DeepSeek.

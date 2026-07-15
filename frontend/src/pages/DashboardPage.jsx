@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FileText } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { fetchDashboard } from '@/lib/dashboard/api'
+import { fetchDashboard, DashboardEmptyError } from '@/lib/dashboard/api'
 import { FinancialHealthCard } from '@/components/dashboard/FinancialHealthCard'
 import { IncomeOverviewCard } from '@/components/dashboard/IncomeOverviewCard'
 import { SpendingOverviewCard } from '@/components/dashboard/SpendingOverviewCard'
@@ -15,12 +15,34 @@ import { SmartSpendingAlertsCard } from '@/components/dashboard/SmartSpendingAle
 export function DashboardPage() {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
+  const [isEmpty, setIsEmpty] = useState(false)
 
   useEffect(() => {
     fetchDashboard()
       .then(setData)
-      .catch(() => setError('Could not load your dashboard right now. Please try again shortly.'))
+      .catch((err) => {
+        if (err instanceof DashboardEmptyError) {
+          setIsEmpty(true)
+        } else {
+          setError('Could not load your dashboard right now. Please try again shortly.')
+        }
+      })
   }, [])
+
+  if (isEmpty) {
+    return (
+      <div className="flex min-h-svh flex-col items-center justify-center gap-4 px-4 text-center">
+        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+        <p className="text-muted-foreground">
+          No statements analyzed yet. Upload one to see your financial insights here.
+        </p>
+        <Button render={<Link to="/analyser" />} nativeButton={false}>
+          <FileText className="size-4" />
+          Go to Account Statement Analyser
+        </Button>
+      </div>
+    )
+  }
 
   if (error) {
     return (
