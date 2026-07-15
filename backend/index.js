@@ -6,6 +6,7 @@ import { connectDB } from './src/db/connect.js'
 import { Transaction, AuditLog } from './src/db/models.js'
 import { saveCategorizedStatement } from './src/db/persistCategorization.js'
 import { computeDashboardData } from './src/analytics/index.js'
+import { computeCashflowData } from './src/analytics/cashflow.js'
 
 const app = express()
 const PORT = process.env.PORT || 4000
@@ -84,6 +85,19 @@ app.get('/api/dashboard', async (req, res) => {
   } catch (err) {
     console.warn('[MongoDB] Failed to compute dashboard:', err.message)
     res.status(503).json({ error: 'Dashboard data is temporarily unavailable.' })
+  }
+})
+
+app.get('/api/cashflow', async (req, res) => {
+  try {
+    const transactions = await Transaction.find().sort({ date: 1 }).lean()
+    if (transactions.length === 0) {
+      return res.status(404).json({ error: 'No statements analyzed yet.' })
+    }
+    res.json(computeCashflowData(transactions))
+  } catch (err) {
+    console.warn('[MongoDB] Failed to compute cashflow analysis:', err.message)
+    res.status(503).json({ error: 'Cashflow data is temporarily unavailable.' })
   }
 })
 
