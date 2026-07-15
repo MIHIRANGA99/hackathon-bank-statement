@@ -20,7 +20,7 @@ export function ChatWindow({
       role="dialog"
       aria-label="Financial Chatbot Window"
       className={cn(
-        "fixed right-6 bottom-24 z-50 flex flex-col bg-background border border-border shadow-2xl rounded-2xl overflow-hidden transition-all duration-300 origin-bottom-right transform",
+        "glass-panel fixed right-6 bottom-24 z-50 flex flex-col rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 origin-bottom-right transform",
         isOpen
           ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
           : "opacity-0 translate-y-4 scale-95 pointer-events-none",
@@ -28,7 +28,7 @@ export function ChatWindow({
       )}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-card border-b border-border dark:bg-card">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-foreground/10">
         <div className="flex items-center gap-2">
           <div className="size-8 rounded-full bg-primary/10 border border-primary/20 text-primary flex items-center justify-center">
             <Bot className="size-4.5" />

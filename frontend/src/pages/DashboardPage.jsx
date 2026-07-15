@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FileText } from 'lucide-react'
+import { FileText, LoaderCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { fetchDashboard, DashboardEmptyError } from '@/lib/dashboard/api'
 import { FinancialHealthCard } from '@/components/dashboard/FinancialHealthCard'
@@ -11,6 +11,16 @@ import { SpendingBehaviorCard } from '@/components/dashboard/SpendingBehaviorCar
 import { SignificantTransactionsCard } from '@/components/dashboard/SignificantTransactionsCard'
 import { RecurringPaymentsCard } from '@/components/dashboard/RecurringPaymentsCard'
 import { SmartSpendingAlertsCard } from '@/components/dashboard/SmartSpendingAlertsCard'
+
+function CenteredState({ children }) {
+  return (
+    <div className="flex flex-1 flex-col items-center justify-center gap-4 px-4 py-20 text-center">
+      <div className="glass-panel flex flex-col items-center gap-4 rounded-3xl px-10 py-12">
+        {children}
+      </div>
+    </div>
+  )
+}
 
 export function DashboardPage() {
   const [data, setData] = useState(null)
@@ -31,7 +41,7 @@ export function DashboardPage() {
 
   if (isEmpty) {
     return (
-      <div className="flex min-h-svh flex-col items-center justify-center gap-4 px-4 text-center">
+      <CenteredState>
         <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
         <p className="text-muted-foreground">
           No statements analyzed yet. Upload one to see your financial insights here.
@@ -40,62 +50,61 @@ export function DashboardPage() {
           <FileText className="size-4" />
           Go to Account Statement Analyser
         </Button>
-      </div>
+      </CenteredState>
     )
   }
 
   if (error) {
     return (
-      <div className="flex min-h-svh flex-col items-center justify-center gap-4 px-4 text-center">
+      <CenteredState>
         <p className="text-muted-foreground">{error}</p>
-      </div>
+      </CenteredState>
     )
   }
 
   if (!data) {
     return (
-      <div className="flex min-h-svh flex-col items-center justify-center gap-4 px-4 text-center">
+      <CenteredState>
+        <LoaderCircle className="size-6 animate-spin text-muted-foreground" />
         <p className="text-muted-foreground">Loading your dashboard…</p>
-      </div>
+      </CenteredState>
     )
   }
 
   return (
-    <div className="flex min-h-svh flex-col items-center gap-6 px-4 py-12">
-      <div className="flex w-full max-w-5xl items-center justify-between">
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <Button render={<Link to="/analyser" />} nativeButton={false}>
-          <FileText className="size-4" />
-          Go to Account Statement Analyser
-        </Button>
-      </div>
+    <div className="w-full">
+      <h1 className="mb-4 text-2xl font-bold tracking-tight">Dashboard</h1>
 
-      <div className="grid w-full max-w-5xl grid-cols-1 gap-4 lg:grid-cols-3">
-        <div className="lg:col-span-1">
+      {/*
+        Masonry flow (CSS multi-column), not CSS Grid: with a grid, two
+        cards sharing a row are forced to the SAME row height (the taller
+        card's height), leaving dead space inside the shorter card's cell
+        even with items-start. Columns give each card independent
+        top-to-bottom flow, sized to its own content only.
+      */}
+      <div className="columns-1 gap-4 lg:columns-2 xl:columns-3">
+        <div className="mb-4 break-inside-avoid">
           <FinancialHealthCard score={data.healthScore.score} label={data.healthScore.label} />
         </div>
-        <div className="lg:col-span-2">
+        <div className="mb-4 break-inside-avoid">
           <IncomeOverviewCard income={data.income} />
         </div>
-
-        <div className="lg:col-span-2">
+        <div className="mb-4 break-inside-avoid">
           <SpendingOverviewCard expenses={data.expenses} />
         </div>
-        <div className="lg:col-span-1">
+        <div className="mb-4 break-inside-avoid">
           <SavingsProgressCard savings={data.savings} />
         </div>
-
-        <div className="lg:col-span-1">
+        <div className="mb-4 break-inside-avoid">
           <SpendingBehaviorCard spendingBehavior={data.spendingBehavior} />
         </div>
-        <div className="lg:col-span-1">
+        <div className="mb-4 break-inside-avoid">
           <SignificantTransactionsCard significantTransactions={data.significantTransactions} />
         </div>
-        <div className="lg:col-span-1">
+        <div className="mb-4 break-inside-avoid">
           <RecurringPaymentsCard recurringPayments={data.recurringPayments} />
         </div>
-
-        <div className="lg:col-span-3">
+        <div className="mb-4 break-inside-avoid">
           <SmartSpendingAlertsCard alerts={data.alerts} />
         </div>
       </div>

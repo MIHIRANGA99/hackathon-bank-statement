@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 
 function formatCurrency(value) {
-  return `$${value.toLocaleString()}`
+  return `LKR ${value.toLocaleString()}`
 }
 
 export function RecurringPaymentsCard({ recurringPayments }) {

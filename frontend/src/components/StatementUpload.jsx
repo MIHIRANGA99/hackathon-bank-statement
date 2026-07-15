@@ -79,12 +79,20 @@ export function StatementUpload({ onParsed }) {
         }}
         onDragLeave={() => setIsDragging(false)}
         onDrop={onDrop}
-        className={`border-2 border-dashed transition-colors ${
-          isDragging ? 'border-primary bg-accent' : 'border-muted-foreground/25'
+        className={`border-2 border-dashed transition-all ${
+          isDragging
+            ? 'scale-[1.01] border-transparent shadow-lg [background:linear-gradient(var(--glass-bg),var(--glass-bg))_padding-box,linear-gradient(135deg,var(--brand-from),var(--brand-to))_border-box]'
+            : 'border-foreground/15'
         }`}
       >
         <CardContent className="flex flex-col items-center gap-3 py-10 text-center">
-          <UploadCloud className="size-10 text-muted-foreground" />
+          <div
+            className={`flex size-14 items-center justify-center rounded-2xl transition-colors ${
+              isDragging ? 'brand-gradient-bg text-white' : 'bg-foreground/5 text-muted-foreground'
+            }`}
+          >
+            <UploadCloud className="size-7" />
+          </div>
           <div>
             <p className="font-medium">Drag & drop your bank statement here</p>
             <p className="text-sm text-muted-foreground">PDF or CSV, up to 2MB</p>
@@ -119,7 +127,10 @@ export function StatementUpload({ onParsed }) {
       </div>
 
       {isProcessing && (
-        <p className="text-center text-sm text-muted-foreground">Processing statement…</p>
+        <p className="flex items-center justify-center gap-2 text-center text-sm text-muted-foreground">
+          <span className="size-1.5 animate-pulse rounded-full brand-gradient-bg" />
+          Processing statement…
+        </p>
       )}
 
       {error && (
