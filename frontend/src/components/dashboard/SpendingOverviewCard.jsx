@@ -4,7 +4,7 @@ import { CHART_TOOLTIP_STYLE } from '@/lib/dashboard/palette'
 import { useChartPalette } from '@/lib/dashboard/useChartPalette'
 
 function formatCurrency(value) {
-  return `$${value.toLocaleString()}`
+  return `LKR ${value.toLocaleString()}`
 }
 
 export function SpendingOverviewCard({ expenses }) {
@@ -18,8 +18,8 @@ export function SpendingOverviewCard({ expenses }) {
           Monthly Expenses: <span className="font-medium">{formatCurrency(expenses.total)}</span>
         </p>
       </CardHeader>
-      <CardContent className="flex flex-col gap-4 sm:flex-row sm:items-center">
-        <div className="h-48 w-full sm:w-1/2">
+      <CardContent className="flex flex-col gap-4">
+        <div className="h-48 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
@@ -39,7 +39,7 @@ export function SpendingOverviewCard({ expenses }) {
           </ResponsiveContainer>
         </div>
 
-        <div className="w-full sm:w-1/2">
+        <div className="w-full">
           <p className="mb-2 text-sm font-medium">Top Spending Categories</p>
           <ol className="flex flex-col gap-2">
             {expenses.byCategory.map((c, i) => (

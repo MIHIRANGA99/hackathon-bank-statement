@@ -4,7 +4,7 @@ import { CHART_TOOLTIP_STYLE } from '@/lib/dashboard/palette'
 import { useChartPalette } from '@/lib/dashboard/useChartPalette'
 
 function formatCurrency(value) {
-  return `$${value.toLocaleString()}`
+  return `LKR ${value.toLocaleString()}`
 }
 
 export function IncomeOverviewCard({ income }) {
@@ -27,7 +27,7 @@ export function IncomeOverviewCard({ income }) {
                 tickLine={false}
                 axisLine={false}
               />
-              <YAxis hide />
+              <YAxis hide domain={[(min) => (min > 0 ? min * 0.85 : min * 1.15), (max) => (max > 0 ? max * 1.15 : max * 0.85)]} />
               <Tooltip formatter={(value) => formatCurrency(value)} {...CHART_TOOLTIP_STYLE} />
               <Line
                 type="monotone"

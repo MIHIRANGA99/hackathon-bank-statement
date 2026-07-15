@@ -4,7 +4,7 @@ import { STATUS_COLORS } from '@/lib/dashboard/palette'
 
 function formatCurrency(value) {
   const sign = value < 0 ? '-' : '+'
-  return `${sign}$${Math.abs(value).toLocaleString()}`
+  return `${sign}LKR ${Math.abs(value).toLocaleString()}`
 }
 
 function TransactionList({ items }) {

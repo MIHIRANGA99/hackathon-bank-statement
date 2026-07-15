@@ -64,7 +64,7 @@ export function computeAnomalies(transactions) {
           message: `Your ${category} expenses increased by ${round2(changePct)}%`,
           previousMonth: round2(previousAmount),
           currentMonth: round2(currentAmount),
-          suggestion: `Consider reducing ${category.toLowerCase()} expenses by $${round2(currentAmount - previousAmount)}`,
+          suggestion: `Consider reducing ${category.toLowerCase()} expenses by LKR ${round2(currentAmount - previousAmount)}`,
         })
       }
     }

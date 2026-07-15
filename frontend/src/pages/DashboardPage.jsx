@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FileText, LoaderCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { AppHeader } from '@/components/AppHeader'
 import { fetchDashboard, DashboardEmptyError } from '@/lib/dashboard/api'
 import { FinancialHealthCard } from '@/components/dashboard/FinancialHealthCard'
 import { IncomeOverviewCard } from '@/components/dashboard/IncomeOverviewCard'
@@ -15,7 +14,7 @@ import { SmartSpendingAlertsCard } from '@/components/dashboard/SmartSpendingAle
 
 function CenteredState({ children }) {
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center gap-4 px-4 text-center">
+    <div className="flex flex-1 flex-col items-center justify-center gap-4 px-4 py-20 text-center">
       <div className="glass-panel flex flex-col items-center gap-4 rounded-3xl px-10 py-12">
         {children}
       </div>
@@ -73,40 +72,40 @@ export function DashboardPage() {
   }
 
   return (
-    <div className="flex min-h-svh flex-col items-center gap-6 px-4 py-6">
-      <AppHeader />
+    <div className="w-full">
+      <h1 className="mb-4 text-2xl font-bold tracking-tight">Dashboard</h1>
 
-      <div className="w-full max-w-5xl">
-        <h1 className="mb-4 text-2xl font-bold tracking-tight">Dashboard</h1>
-
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <div className="lg:col-span-1">
-            <FinancialHealthCard score={data.healthScore.score} label={data.healthScore.label} />
-          </div>
-          <div className="lg:col-span-2">
-            <IncomeOverviewCard income={data.income} />
-          </div>
-
-          <div className="lg:col-span-2">
-            <SpendingOverviewCard expenses={data.expenses} />
-          </div>
-          <div className="lg:col-span-1">
-            <SavingsProgressCard savings={data.savings} />
-          </div>
-
-          <div className="lg:col-span-1">
-            <SpendingBehaviorCard spendingBehavior={data.spendingBehavior} />
-          </div>
-          <div className="lg:col-span-1">
-            <SignificantTransactionsCard significantTransactions={data.significantTransactions} />
-          </div>
-          <div className="lg:col-span-1">
-            <RecurringPaymentsCard recurringPayments={data.recurringPayments} />
-          </div>
-
-          <div className="lg:col-span-3">
-            <SmartSpendingAlertsCard alerts={data.alerts} />
-          </div>
+      {/*
+        Masonry flow (CSS multi-column), not CSS Grid: with a grid, two
+        cards sharing a row are forced to the SAME row height (the taller
+        card's height), leaving dead space inside the shorter card's cell
+        even with items-start. Columns give each card independent
+        top-to-bottom flow, sized to its own content only.
+      */}
+      <div className="columns-1 gap-4 lg:columns-2 xl:columns-3">
+        <div className="mb-4 break-inside-avoid">
+          <FinancialHealthCard score={data.healthScore.score} label={data.healthScore.label} />
+        </div>
+        <div className="mb-4 break-inside-avoid">
+          <IncomeOverviewCard income={data.income} />
+        </div>
+        <div className="mb-4 break-inside-avoid">
+          <SpendingOverviewCard expenses={data.expenses} />
+        </div>
+        <div className="mb-4 break-inside-avoid">
+          <SavingsProgressCard savings={data.savings} />
+        </div>
+        <div className="mb-4 break-inside-avoid">
+          <SpendingBehaviorCard spendingBehavior={data.spendingBehavior} />
+        </div>
+        <div className="mb-4 break-inside-avoid">
+          <SignificantTransactionsCard significantTransactions={data.significantTransactions} />
+        </div>
+        <div className="mb-4 break-inside-avoid">
+          <RecurringPaymentsCard recurringPayments={data.recurringPayments} />
+        </div>
+        <div className="mb-4 break-inside-avoid">
+          <SmartSpendingAlertsCard alerts={data.alerts} />
         </div>
       </div>
     </div>

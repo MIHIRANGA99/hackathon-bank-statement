@@ -110,7 +110,7 @@ export function computeCashflowData(transactions) {
   } else if (currentMonthData.net < 0) {
     status = 'negative'
     statusTitle = 'Negative Cashflow'
-    statusDesc = `You spent $${Math.abs(currentMonthData.net).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} more than you received.`
+    statusDesc = `You spent LKR ${Math.abs(currentMonthData.net).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} more than you received.`
   }
 
   // Improvement comparison compared to last month
@@ -171,7 +171,7 @@ export function computeCashflowData(transactions) {
     insights.push({
       type: 'warning',
       title: 'Net Outflow Alert',
-      message: `You have a negative cashflow of -$${Math.abs(currentMonthData.net).toLocaleString(undefined, { minimumFractionDigits: 2 })} this month.`,
+      message: `You have a negative cashflow of -LKR ${Math.abs(currentMonthData.net).toLocaleString(undefined, { minimumFractionDigits: 2 })} this month.`,
       recommendation: 'Check if you have one-off large purchases or if recurring costs have increased.',
     })
   }

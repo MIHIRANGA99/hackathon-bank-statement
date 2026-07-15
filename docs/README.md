@@ -12,3 +12,4 @@ One `.md` file per requirement we build, numbered in the order they were tackled
 | [06](06-module-4-financial-insights-dashboard.md) | Module 4 — Financial Insights Dashboard | Superseded by [07](07-mongodb-integration-and-real-dashboard.md) — UI built here, wired to real data there |
 | [07](07-mongodb-integration-and-real-dashboard.md) | MongoDB Integration + Real Dashboard | Complete (100%) |
 | [08](08-glassmorphic-ui-redesign.md) | Full UI Redesign — Glassmorphic, Dark/Light Mode | Complete (100%) |
+| [09](09-sidebar-consolidation-and-grid-fixes.md) | Sidebar Consolidation + Dashboard Grid Fixes | Complete (100%) |

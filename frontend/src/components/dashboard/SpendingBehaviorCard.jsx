@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge'
 import { STATUS_COLORS } from '@/lib/dashboard/palette'
 
 function formatCurrency(value) {
-  return `$${value.toLocaleString()}`
+  return `LKR ${value.toLocaleString()}`
 }
 
 export function SpendingBehaviorCard({ spendingBehavior }) {

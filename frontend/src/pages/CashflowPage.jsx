@@ -17,7 +17,7 @@ import { CATEGORICAL, SEQUENTIAL_BLUE, STATUS, CHART_CHROME } from '@/lib/dashbo
 // ─── Utility ────────────────────────────────────────────────────────────────
 function fmt(value) {
   if (value == null) return '—'
-  return `$${Math.abs(value).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+  return `LKR ${Math.abs(value).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
 }
 
 function pctLabel(pct) {

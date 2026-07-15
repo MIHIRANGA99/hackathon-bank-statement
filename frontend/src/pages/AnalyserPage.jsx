@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { StatementUpload } from '@/components/StatementUpload'
 import { TransactionTable } from '@/components/TransactionTable'
-import { AppHeader } from '@/components/AppHeader'
 import { Card, CardContent } from '@/components/ui/card'
 import { useCategorization } from '@/lib/categorization/useCategorization'
 import { useTransactionRepository } from '@/lib/transactions/useTransactionRepository'
@@ -20,9 +19,7 @@ export function AnalyserPage() {
   }
 
   return (
-    <div className="flex min-h-svh flex-col items-center gap-8 px-4 py-6">
-      <AppHeader />
-
+    <div className="flex w-full flex-col items-center gap-8">
       <div className="text-center">
         <h1 className="text-4xl font-bold tracking-tight">
           Account Statement <span className="brand-gradient-text">Analyser</span>

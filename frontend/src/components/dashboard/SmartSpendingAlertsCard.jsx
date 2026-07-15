@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { STATUS_COLORS } from '@/lib/dashboard/palette'
 
 function formatCurrency(value) {
-  return `$${value.toLocaleString()}`
+  return `LKR ${value.toLocaleString()}`
 }
 
 export function SmartSpendingAlertsCard({ alerts }) {
