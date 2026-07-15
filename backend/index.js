@@ -7,6 +7,7 @@ import { Transaction, AuditLog } from './src/db/models.js'
 import { saveCategorizedStatement } from './src/db/persistCategorization.js'
 import { computeDashboardData } from './src/analytics/index.js'
 import { computeCashflowData } from './src/analytics/cashflow.js'
+import { handleChat } from './src/chat/handler.js'
 
 const app = express()
 const PORT = process.env.PORT || 4000
@@ -98,6 +99,21 @@ app.get('/api/cashflow', async (req, res) => {
   } catch (err) {
     console.warn('[MongoDB] Failed to compute cashflow analysis:', err.message)
     res.status(503).json({ error: 'Cashflow data is temporarily unavailable.' })
+  }
+})
+
+// Module 6 — AI Financial Assistant
+app.post('/api/chat', async (req, res) => {
+  const { sessionId, question } = req.body || {}
+  if (!question || typeof question !== 'string') {
+    return res.status(400).json({ error: 'question is required' })
+  }
+  try {
+    const answer = await handleChat(sessionId || 'default', question.trim())
+    res.json({ answer })
+  } catch (err) {
+    console.error('[Chat] Error:', err.message)
+    res.status(500).json({ error: 'Failed to generate a response. Please try again.' })
   }
 })
 
