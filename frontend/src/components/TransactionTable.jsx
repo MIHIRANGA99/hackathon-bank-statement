@@ -76,7 +76,7 @@ export function TransactionTable({ repo, onUpdateCategory, onBulkUpdateCategory 
   }
 
   return (
-    <div className="flex w-full flex-col gap-3">
+    <div className="glass-panel flex w-full flex-col gap-3 rounded-2xl p-4">
       <div className="flex flex-wrap items-center gap-2">
         <Input
           placeholder="Search description, reference, category…"
@@ -131,7 +131,7 @@ export function TransactionTable({ repo, onUpdateCategory, onBulkUpdateCategory 
       </div>
 
       {selected.size > 0 && (
-        <div className="flex items-center gap-2 rounded-md border bg-muted/40 px-3 py-2">
+        <div className="flex items-center gap-2 rounded-xl border border-foreground/10 bg-foreground/5 px-3 py-2">
           <span className="text-sm">{selected.size} selected</span>
           <Select value={bulkCategory} onValueChange={setBulkCategory}>
             <SelectTrigger className="w-40">
@@ -154,7 +154,7 @@ export function TransactionTable({ repo, onUpdateCategory, onBulkUpdateCategory 
         </div>
       )}
 
-      <div className="overflow-x-auto rounded-md border">
+      <div className="overflow-x-auto rounded-xl border border-foreground/10">
         <Table>
           <TableHeader>
             <TableRow>
@@ -164,6 +164,7 @@ export function TransactionTable({ repo, onUpdateCategory, onBulkUpdateCategory 
                     <TableHead key="select" className="w-10">
                       <input
                         type="checkbox"
+                        className="accent-[var(--brand-from)]"
                         checked={allOnPageSelected}
                         onChange={toggleAllOnPage}
                         aria-label="Select all on page"
@@ -215,6 +216,7 @@ export function TransactionTable({ repo, onUpdateCategory, onBulkUpdateCategory 
                 <TableCell>
                   <input
                     type="checkbox"
+                        className="accent-[var(--brand-from)]"
                     checked={selected.has(t.id)}
                     onChange={() => toggleRow(t.id)}
                     aria-label={`Select transaction ${t.id}`}

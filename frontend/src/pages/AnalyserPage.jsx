@@ -1,9 +1,7 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
 import { StatementUpload } from '@/components/StatementUpload'
 import { TransactionTable } from '@/components/TransactionTable'
-import { Button } from '@/components/ui/button'
+import { AppHeader } from '@/components/AppHeader'
 import { Card, CardContent } from '@/components/ui/card'
 import { useCategorization } from '@/lib/categorization/useCategorization'
 import { useTransactionRepository } from '@/lib/transactions/useTransactionRepository'
@@ -22,16 +20,13 @@ export function AnalyserPage() {
   }
 
   return (
-    <div className="flex min-h-svh flex-col items-center gap-8 px-4 py-12">
-      <div className="w-full max-w-5xl">
-        <Button variant="ghost" size="sm" render={<Link to="/dashboard" />} nativeButton={false}>
-          <ArrowLeft className="size-4" />
-          Back to dashboard
-        </Button>
-      </div>
+    <div className="flex min-h-svh flex-col items-center gap-8 px-4 py-6">
+      <AppHeader />
 
       <div className="text-center">
-        <h1 className="text-4xl font-bold tracking-tight">Account Statement Analyser</h1>
+        <h1 className="text-4xl font-bold tracking-tight">
+          Account Statement <span className="brand-gradient-text">Analyser</span>
+        </h1>
         <p className="text-muted-foreground">Upload a bank statement to get started.</p>
       </div>
 
@@ -46,7 +41,7 @@ export function AnalyserPage() {
 
           <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
             <Card
-              className="cursor-pointer transition-colors hover:bg-muted/40"
+              className="cursor-pointer transition-colors hover:bg-foreground/5"
               onClick={() => repo.setReviewOnly(true)}
             >
               <CardContent className="py-4">

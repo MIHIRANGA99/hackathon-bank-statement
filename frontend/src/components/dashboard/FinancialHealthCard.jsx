@@ -1,11 +1,11 @@
 import { Card, CardContent } from '@/components/ui/card'
-import { STATUS } from '@/lib/dashboard/palette'
+import { STATUS_COLORS } from '@/lib/dashboard/palette'
 
 function scoreColor(score) {
-  if (score >= 80) return STATUS.good
-  if (score >= 60) return STATUS.warning
-  if (score >= 40) return STATUS.serious
-  return STATUS.critical
+  if (score >= 80) return STATUS_COLORS.good
+  if (score >= 60) return STATUS_COLORS.warning
+  if (score >= 40) return STATUS_COLORS.serious
+  return STATUS_COLORS.critical
 }
 
 export function FinancialHealthCard({ score, label }) {

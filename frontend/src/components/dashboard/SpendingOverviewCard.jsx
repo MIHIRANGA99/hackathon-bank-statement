@@ -1,12 +1,15 @@
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { CATEGORICAL } from '@/lib/dashboard/palette'
+import { CHART_TOOLTIP_STYLE } from '@/lib/dashboard/palette'
+import { useChartPalette } from '@/lib/dashboard/useChartPalette'
 
 function formatCurrency(value) {
   return `$${value.toLocaleString()}`
 }
 
 export function SpendingOverviewCard({ expenses }) {
+  const { categorical } = useChartPalette()
+
   return (
     <Card>
       <CardHeader>
@@ -28,10 +31,10 @@ export function SpendingOverviewCard({ expenses }) {
                 paddingAngle={2}
               >
                 {expenses.byCategory.map((entry, i) => (
-                  <Cell key={entry.category} fill={CATEGORICAL[i % CATEGORICAL.length]} />
+                  <Cell key={entry.category} fill={categorical[i % categorical.length]} />
                 ))}
               </Pie>
-              <Tooltip formatter={(value) => formatCurrency(value)} />
+              <Tooltip formatter={(value) => formatCurrency(value)} {...CHART_TOOLTIP_STYLE} />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -43,7 +46,7 @@ export function SpendingOverviewCard({ expenses }) {
               <li key={c.category} className="flex items-center gap-2 text-sm">
                 <span
                   className="size-2.5 shrink-0 rounded-full"
-                  style={{ backgroundColor: CATEGORICAL[i % CATEGORICAL.length] }}
+                  style={{ backgroundColor: categorical[i % categorical.length] }}
                 />
                 <span className="flex-1">
                   {i + 1}. {c.category}

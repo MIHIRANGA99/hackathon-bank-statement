@@ -1,6 +1,6 @@
 import { AlertTriangle } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { STATUS } from '@/lib/dashboard/palette'
+import { STATUS_COLORS } from '@/lib/dashboard/palette'
 
 function formatCurrency(value) {
   return `$${value.toLocaleString()}`
@@ -21,7 +21,7 @@ export function SmartSpendingAlertsCard({ alerts }) {
   }
 
   return (
-    <Card style={{ borderColor: STATUS.warning }}>
+    <Card style={{ borderColor: STATUS_COLORS.warning }}>
       <CardHeader>
         <CardTitle>Smart Spending Alerts</CardTitle>
       </CardHeader>
@@ -30,9 +30,9 @@ export function SmartSpendingAlertsCard({ alerts }) {
           <div
             key={i}
             className="flex gap-3 rounded-md border px-3 py-3"
-            style={{ borderColor: STATUS.warning, backgroundColor: 'color-mix(in oklch, ' + STATUS.warning + ' 10%, transparent)' }}
+            style={{ borderColor: STATUS_COLORS.warning, backgroundColor: 'color-mix(in oklch, ' + STATUS_COLORS.warning + ' 10%, transparent)' }}
           >
-            <AlertTriangle className="mt-0.5 size-5 shrink-0" style={{ color: STATUS.warning }} />
+            <AlertTriangle className="mt-0.5 size-5 shrink-0" style={{ color: STATUS_COLORS.warning }} />
             <div className="flex-1">
               <p className="font-medium">{alert.title}</p>
               <p className="text-sm">{alert.message}</p>
