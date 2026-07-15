@@ -1,16 +1,19 @@
 import Chatbot from './components/Chatbot/Chatbot';
 
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { WelcomePage } from '@/pages/WelcomePage'
+import { DashboardPage } from '@/pages/DashboardPage'
+import { AnalyserPage } from '@/pages/AnalyserPage'
+
 function App() {
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center gap-2">
-      <h1 className="text-4xl font-bold tracking-tight">
-        Account Statement Analyser
-      </h1>
-      <p className="text-muted-foreground">Frontend is up and running.</p>
-      
-      {/* Financial Chatbot Component */}
-      <Chatbot />
-    </div>
+    <Routes>
+      <Route path="/" element={<WelcomePage />} />
+      <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path="/analyser" element={<AnalyserPage />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+      <Route path="/chatbot" element={<Chatbot />} />
+    </Routes>
   )
 }
 
