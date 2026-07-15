@@ -5,5 +5,14 @@
   "workspaces": [
     "backend",
     "frontend"
-  ]
+  ],
+  "scripts": {
+    "dev": "pnpm run db:up && concurrently -n backend,frontend -c yellow,cyan \"pnpm --filter backend dev\" \"pnpm --filter frontend dev\"",
+    "db:up": "docker compose up -d --wait mongo",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f mongo"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
 }
