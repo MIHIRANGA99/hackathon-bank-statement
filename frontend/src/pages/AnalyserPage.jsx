@@ -24,9 +24,9 @@ export function AnalyserPage() {
   return (
     <div className="flex min-h-svh flex-col items-center gap-8 px-4 py-12">
       <div className="w-full max-w-5xl">
-        <Button variant="ghost" size="sm" render={<Link to="/dashboard" />} nativeButton={false}>
+        <Button variant="ghost" size="sm" render={<Link to="/" />} nativeButton={false}>
           <ArrowLeft className="size-4" />
-          Back to dashboard
+          Back
         </Button>
       </div>
 

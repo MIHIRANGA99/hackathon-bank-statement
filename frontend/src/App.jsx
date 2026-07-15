@@ -6,13 +6,14 @@ import { DashboardPage } from '@/pages/DashboardPage'
 import { AnalyserPage } from '@/pages/AnalyserPage'
 import { CashflowPage } from '@/pages/CashflowPage'
 import { DashboardLayout } from '@/components/DashboardLayout'
+import { AuthProvider } from '@/lib/auth/AuthContext'
 
 function App() {
   return (
-    <>
+    <AuthProvider>
       <Routes>
         <Route path="/" element={<WelcomePage />} />
-        
+
         {/* Layout routes */}
         <Route element={<DashboardLayout />}>
           <Route path="/dashboard" element={<DashboardPage />} />
@@ -22,10 +23,10 @@ function App() {
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-      
+
       {/* Global Financial Chatbot */}
       <Chatbot />
-    </>
+    </AuthProvider>
   )
 }
 

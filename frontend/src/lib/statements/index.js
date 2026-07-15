@@ -1,10 +1,9 @@
 import { StatementError, ERROR_MESSAGES } from './errors'
 import { validateFileBasics, validateFileContent } from './validation'
-import { parseCsvTransactions } from './csvParser'
-import { extractPdfText, parsePdfTransactions } from './pdfParser'
-import { normalizeTransactions } from './normalize'
 
 export { StatementError }
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000'
 
 function readAsArrayBuffer(file) {
   return new Promise((resolve, reject) => {
@@ -15,10 +14,9 @@ function readAsArrayBuffer(file) {
   })
 }
 
-// Runs the full upload -> validate -> parse -> normalize pipeline for a
-// File (or File-like Blob with a .name), returning the final normalized
-// transaction list. Throws StatementError with a user-facing message on
-// any failure.
+// Validates the file client-side for instant feedback, then uploads it to
+// the backend, which extracts and (for PDFs) AI-parses the transactions
+// in memory — the raw file and parsed data are never written to disk.
 export async function processStatementFile(file) {
   const ext = validateFileBasics(file)
 
@@ -26,23 +24,27 @@ export async function processStatementFile(file) {
   const bytes = new Uint8Array(buffer)
   validateFileContent(ext, bytes)
 
-  let rawRows
+  const formData = new FormData()
+  formData.append('statement', file)
+
+  let res
   try {
-    if (ext === 'csv') {
-      const text = new TextDecoder('utf-8').decode(bytes)
-      rawRows = parseCsvTransactions(text)
-    } else {
-      const text = await extractPdfText(buffer)
-      rawRows = parsePdfTransactions(text)
-    }
-  } catch (err) {
-    if (err instanceof StatementError) throw err
+    res = await fetch(`${API_BASE_URL}/api/statements/parse`, {
+      method: 'POST',
+      body: formData,
+    })
+  } catch {
     throw new StatementError(ERROR_MESSAGES.UNREADABLE)
   }
 
-  if (!rawRows || rawRows.length === 0) {
+  const data = await res.json().catch(() => ({}))
+
+  if (!res.ok) {
+    throw new StatementError(data.error || ERROR_MESSAGES.UNREADABLE)
+  }
+  if (!data.transactions || data.transactions.length === 0) {
     throw new StatementError(ERROR_MESSAGES.EMPTY)
   }
 
-  return normalizeTransactions(rawRows)
+  return data.transactions
 }

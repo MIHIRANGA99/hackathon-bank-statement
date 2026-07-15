@@ -1,5 +1,4 @@
 import Papa from 'papaparse'
-import { StatementError, ERROR_MESSAGES } from './errors'
 
 const COLUMN_ALIASES = {
   date: ['date', 'transaction date', 'txn date', 'value date'],
@@ -24,24 +23,25 @@ function buildColumnMap(headers) {
   return map
 }
 
-// Parses raw CSV text into loosely-shaped transaction rows (still in
-// source format — normalization happens in a separate step).
+// CSV statements already arrive column-structured, so this stays
+// deterministic — no need to spend an AI call on data that's already
+// shaped correctly. AI extraction is reserved for unstructured PDF text.
 export function parseCsvTransactions(text) {
   let result
   try {
     result = Papa.parse(text, { header: true, skipEmptyLines: true })
   } catch {
-    throw new StatementError(ERROR_MESSAGES.UNREADABLE)
+    throw new Error('Unable to process this statement. Please check the file and try again.')
   }
 
   const headers = result.meta?.fields || []
   if (headers.length === 0) {
-    throw new StatementError(ERROR_MESSAGES.UNREADABLE)
+    throw new Error('Unable to process this statement. Please check the file and try again.')
   }
 
   const colMap = buildColumnMap(headers)
   if (!colMap.date || !colMap.description) {
-    throw new StatementError(ERROR_MESSAGES.UNREADABLE)
+    throw new Error('Unable to process this statement. Please check the file and try again.')
   }
 
   const rows = (result.data || [])

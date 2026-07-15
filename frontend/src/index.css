@@ -81,6 +81,10 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+    /* Brand / dashboard accents */
+    --brand-600: #6b46c1;
+    --brand-400: #9f7aea;
+    --stat-card-bg: linear-gradient(135deg, var(--brand-600), var(--brand-400));
 }
 
 .dark {

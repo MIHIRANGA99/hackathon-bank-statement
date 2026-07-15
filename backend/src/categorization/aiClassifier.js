@@ -1,12 +1,6 @@
-import OpenAI from 'openai'
 import { CATEGORIES } from './categories.js'
-
-function getClient() {
-  return new OpenAI({
-    apiKey: process.env.DEEPSEEK_API_KEY,
-    baseURL: process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com',
-  })
-}
+import { logger } from '../logger.js'
+import { getAIProvider } from '../ai/client.js'
 
 function buildPrompt(transactions) {
   const list = transactions
@@ -37,16 +31,16 @@ export async function classifyWithAI(transactions) {
   }))
 
   try {
-    console.log(`[DeepSeek] Calling ${process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com'} to classify ${transactions.length} transaction(s)…`)
+    const { name, client, model, baseURL } = getAIProvider()
+    logger.info(`[AI:${name}] Calling ${baseURL} to classify ${transactions.length} transaction(s)`)
 
-    const client = getClient()
     const response = await client.chat.completions.create({
-      model: 'deepseek-chat',
+      model,
       messages: [{ role: 'user', content: buildPrompt(transactions) }],
       temperature: 0,
     })
 
-    console.log('[DeepSeek] Call succeeded, raw response:', response.choices?.[0]?.message?.content)
+    logger.debug(`[AI:${name}] Call succeeded, raw response:`, response.choices?.[0]?.message?.content)
 
     const raw = response.choices?.[0]?.message?.content?.trim() || ''
     const jsonText = raw.replace(/^```json\s*|^```\s*|```$/g, '').trim()
@@ -69,7 +63,7 @@ export async function classifyWithAI(transactions) {
       }
     })
   } catch (err) {
-    console.warn('[DeepSeek] Call failed, falling back to Other:', err.message)
+    logger.warn('[AI] Call failed, falling back to Other:', err)
     return fallback
   }
 }
