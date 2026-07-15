@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { STATUS } from '@/lib/dashboard/palette'
+import { STATUS_COLORS } from '@/lib/dashboard/palette'
 
 function formatCurrency(value) {
-  return `$${value.toLocaleString()}`
+  return `LKR ${value.toLocaleString()}`
 }
 
 export function SpendingBehaviorCard({ spendingBehavior }) {
@@ -25,7 +25,7 @@ export function SpendingBehaviorCard({ spendingBehavior }) {
                 </p>
               </div>
               <div className="text-right">
-                <p className="font-medium" style={{ color: up ? STATUS.serious : STATUS.good }}>
+                <p className="font-medium" style={{ color: up ? STATUS_COLORS.serious : STATUS_COLORS.good }}>
                   {up ? '↑' : '↓'} {Math.abs(row.changePct)}%
                 </p>
                 {row.flag && (

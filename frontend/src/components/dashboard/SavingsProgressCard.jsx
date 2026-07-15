@@ -1,20 +1,22 @@
 import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, CartesianGrid } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
-import { SEQUENTIAL_BLUE, CHART_CHROME, STATUS } from '@/lib/dashboard/palette'
+import { CHART_TOOLTIP_STYLE } from '@/lib/dashboard/palette'
+import { useChartPalette } from '@/lib/dashboard/useChartPalette'
 
 function formatCurrency(value) {
-  return `$${value.toLocaleString()}`
+  return `LKR ${value.toLocaleString()}`
 }
 
-function rateLabel(rate) {
-  if (rate >= 30) return { text: 'Excellent', color: STATUS.good }
-  if (rate >= 15) return { text: 'Good', color: STATUS.warning }
-  return { text: 'Needs attention', color: STATUS.critical }
+function rateLabel(rate, status) {
+  if (rate >= 30) return { text: 'Excellent', color: status.good }
+  if (rate >= 15) return { text: 'Good', color: status.warning }
+  return { text: 'Needs attention', color: status.critical }
 }
 
 export function SavingsProgressCard({ savings }) {
-  const { text, color } = rateLabel(savings.rate)
+  const { sequentialBlue, chrome, status } = useChartPalette()
+  const { text, color } = rateLabel(savings.rate, status)
 
   return (
     <Card>
@@ -41,22 +43,22 @@ export function SavingsProgressCard({ savings }) {
         <div className="h-40">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={savings.trend} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
-              <CartesianGrid stroke={CHART_CHROME.grid} vertical={false} />
+              <CartesianGrid stroke={chrome.grid} vertical={false} />
               <XAxis
                 dataKey="month"
-                stroke={CHART_CHROME.axis}
-                tick={{ fill: CHART_CHROME.mutedText, fontSize: 12 }}
+                stroke={chrome.axis}
+                tick={{ fill: chrome.mutedText, fontSize: 12 }}
                 tickLine={false}
                 axisLine={false}
               />
-              <YAxis hide />
-              <Tooltip formatter={(value) => formatCurrency(value)} />
+              <YAxis hide domain={[(min) => (min > 0 ? min * 0.85 : min * 1.15), (max) => (max > 0 ? max * 1.15 : max * 0.85)]} />
+              <Tooltip formatter={(value) => formatCurrency(value)} {...CHART_TOOLTIP_STYLE} />
               <Line
                 type="monotone"
                 dataKey="amount"
-                stroke={SEQUENTIAL_BLUE}
+                stroke={sequentialBlue}
                 strokeWidth={2}
-                dot={{ r: 4, fill: SEQUENTIAL_BLUE }}
+                dot={{ r: 4, fill: sequentialBlue }}
               />
             </LineChart>
           </ResponsiveContainer>

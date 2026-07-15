@@ -81,10 +81,12 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
-    /* Brand / dashboard accents */
-    --brand-600: #6b46c1;
-    --brand-400: #9f7aea;
-    --stat-card-bg: linear-gradient(135deg, var(--brand-600), var(--brand-400));
+
+    --brand-from: #6d5efc;
+    --brand-to: #38bdf8;
+    --glass-bg: oklch(1 0 0 / 60%);
+    --glass-border: oklch(0 0 0 / 8%);
+    --glass-shadow: oklch(0 0 0 / 8%);
 }
 
 .dark {
@@ -119,6 +121,12 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.556 0 0);
+
+    --brand-from: #8b7bff;
+    --brand-to: #5ec8f8;
+    --glass-bg: oklch(0.205 0 0 / 55%);
+    --glass-border: oklch(1 0 0 / 10%);
+    --glass-shadow: oklch(0 0 0 / 40%);
 }
 
 @layer base {
@@ -131,4 +139,74 @@
   html {
     @apply font-sans;
     }
+}
+
+@layer utilities {
+  .glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px var(--glass-shadow);
+  }
+
+  .brand-gradient-text {
+    background: linear-gradient(135deg, var(--brand-from), var(--brand-to));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .brand-gradient-bg {
+    background: linear-gradient(135deg, var(--brand-from), var(--brand-to));
+  }
+}
+
+.app-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--background);
+}
+
+.app-backdrop::before,
+.app-backdrop::after {
+  content: '';
+  position: absolute;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.25;
+}
+
+.app-backdrop::before {
+  top: -20vmax;
+  left: -10vmax;
+  background: var(--brand-from);
+}
+
+.app-backdrop::after {
+  bottom: -25vmax;
+  right: -10vmax;
+  background: var(--brand-to);
+}
+
+.dark .app-backdrop::before,
+.dark .app-backdrop::after {
+  opacity: 0.18;
+}
+
+@keyframes loading-bar {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(150%);
+  }
+  100% {
+    transform: translateX(150%);
+  }
 }

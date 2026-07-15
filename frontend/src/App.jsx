@@ -4,6 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { WelcomePage } from '@/pages/WelcomePage'
 import { DashboardPage } from '@/pages/DashboardPage'
 import { AnalyserPage } from '@/pages/AnalyserPage'
+import { AppBackground } from '@/components/AppBackground'
 import { CashflowPage } from '@/pages/CashflowPage'
 import { DashboardLayout } from '@/components/DashboardLayout'
 import { AuthProvider } from '@/lib/auth/AuthContext'
@@ -11,6 +12,8 @@ import { AuthProvider } from '@/lib/auth/AuthContext'
 function App() {
   return (
     <AuthProvider>
+      <AppBackground />
+
       <Routes>
         <Route path="/" element={<WelcomePage />} />
 
@@ -31,5 +34,3 @@ function App() {
 }
 
 export default App
-
-
