@@ -1,0 +1,28 @@
+date,description,debit,credit,balance,reference
+2026-01-02,"Salary Payment - Acme Corp",,3200.00,5350.00,TXN10000
+2026-01-03,"Woolworths Groceries",64.25,,5285.75,TXN10001
+2026-01-04,"Netflix Subscription",15.99,,5269.76,TXN10002
+2026-01-05,"Uber Trip - City Centre",12.40,,5257.36,TXN10003
+2026-01-07,"Spotify Premium",11.99,,5245.37,TXN10004
+2026-01-08,"Coles Supermarket",48.60,,5196.77,TXN10005
+2026-01-10,"ATM Withdrawal - Main St Branch",200.00,,4996.77,TXN10006
+2026-01-12,"Electric Co Utility Bill",95.30,,4901.47,TXN10007
+2026-01-13,"The Rustic Table Restaurant",58.75,,4842.72,TXN10008
+2026-01-15,"Uber Trip - Airport",34.20,,4808.52,TXN10009
+2026-01-16,"Monthly Account Fee",5.00,,4803.52,TXN10010
+2026-01-18,"Woolworths Groceries",71.10,,4732.42,TXN10011
+2026-01-20,"Transfer to J. Rivera - Savings",400.00,,4332.42,TXN10012
+2026-01-22,"Blue Bean Coffee House",6.50,,4325.92,TXN10013
+2026-01-25,"Internet & Broadband Co",69.99,,4255.93,TXN10014
+2026-01-28,"Coles Supermarket",52.40,,4203.53,TXN10015
+2026-01-30,"Uber Trip - City Centre",15.80,,4187.73,TXN10016
+2026-02-02,"Salary Payment - Acme Corp",,3200.00,7387.73,TXN10017
+2026-02-03,"Netflix Subscription",15.99,,7371.74,TXN10018
+2026-02-04,"Woolworths Groceries",66.85,,7304.89,TXN10019
+2026-02-06,"Spotify Premium",11.99,,7292.90,TXN10020
+2026-02-09,"Golden Dragon Takeaway",32.20,,7260.70,TXN10021
+2026-02-11,"ATM Withdrawal - Main St Branch",150.00,,7110.70,TXN10022
+2026-02-14,"Electric Co Utility Bill",88.45,,7022.25,TXN10023
+2026-02-18,"Coles Supermarket",59.15,,6963.10,TXN10024
+2026-02-20,"Uber Trip - Airport",41.60,,6921.50,TXN10025
+2026-02-24,"Transfer to J. Rivera - Savings",300.00,,6621.50,TXN10026

@@ -1,0 +1,18 @@
+export const CATEGORIES = [
+  'Income',
+  'Groceries',
+  'Utilities',
+  'Transport',
+  'Dining',
+  'Subscriptions',
+  'Loan Payments',
+  'Fees',
+  'Transfers',
+  'Cash Withdrawals',
+  'Shopping',
+  'Healthcare',
+  'Entertainment',
+  'Education',
+  'Travel',
+  'Other',
+]
