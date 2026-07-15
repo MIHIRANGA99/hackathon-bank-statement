@@ -7,15 +7,20 @@ import { AnalyserPage } from '@/pages/AnalyserPage'
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<WelcomePage />} />
-      <Route path="/dashboard" element={<DashboardPage />} />
-      <Route path="/analyser" element={<AnalyserPage />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
-      <Route path="/chatbot" element={<Chatbot />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<WelcomePage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/analyser" element={<AnalyserPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      
+      {/* Global Financial Chatbot */}
+      <Chatbot />
+    </>
   )
 }
 
 export default App
+
 
